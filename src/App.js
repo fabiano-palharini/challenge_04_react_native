@@ -17,7 +17,6 @@ export default function App() {
 
   useEffect(()=>{
     api.get('/repositories').then( response => {
-      console.log(response.data);
       setRepositories(response.data);
     }).catch(error => {
       console.log(error.message);
@@ -25,26 +24,9 @@ export default function App() {
   }, [])
 
   async function handleLikeRepository(id) {    
-    // console.log('palharini' + id);
     const response = await api.post(`/repositories/${id}/like`);
     const newRepositories = repositories.filter(repository => repository.id !== id)
     setRepositories([...newRepositories,response.data])
-
-    // api.get('/repositories').then( response => {
-    //   console.log(response.data);
-    //   setRepositories(response.data);
-    // }).catch(error => {
-    //   console.log(error.message);
-    // });
-
-
-    // const repoIndex = repositories.findIndex(repository => repository.id === id);
-    // console.log('index: ' + repoIndex);
-    // console.log(repositories[repoIndex].likes);
-    // repositories[repoIndex].likes += 1;
-    // console.log(repositories[repoIndex].likes);
-    // setRepositories(repositories);
-    // console.log(repositories);
   }
 
   return (
